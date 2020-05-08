@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var orderRouter=require('./routes/orderRoute');
 var app = express();
-
+const mongoose=require('mongoose');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -37,5 +37,10 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+mongoose.connect("mongodb://localhost:27017/orders", {
+useNewUrlParser: true,
+useUnifiedTopology: true,
+});
+
 
 module.exports = app;

@@ -1,9 +1,10 @@
 const orderRepository= require('../repository/orderRepository');
 exports.getOrderByOrderNo =async(orderNo)=>{
-    const order =await orderRepository.findOrderByOrderNo();
+    const order =await orderRepository.findOrderByOrderNo(orderNo);
     return order;
-}
+};
 exports.updateOrder =async(order)=>{ 
-    const data =await orderRepository.updateOrder(order);
-    return data;
-}
+    console.log("jjjjjj",order);
+    const update =await orderRepository.updateOrder(order);
+    return update;
+};
