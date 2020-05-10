@@ -12,14 +12,18 @@ class ViewOrderContainer extends Component {
         });
     }
     render() { 
+        
         const { order }=this.state;
-        console.log(order);
+        console.log("hhhhhhhhh",order);
         return (
-         <ViewOrderDetails order={order}/>
+            <ViewOrderDetails order={order}/>
         );
+         
+        
     }
     
     }
+
 
  
 export default ViewOrderContainer;

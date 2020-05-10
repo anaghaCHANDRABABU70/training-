@@ -1,11 +1,11 @@
 import React from 'react';
-import ViewOrderDetail from './component/viewOrderDetail';
 import ViewOrderDetailsContainer from './container/viewOrderDetailContainer';
+import EditOrderDetails from './container/editOrderDetailsContainer';
 function App() {
     return (
     <div className="App">
-      <ViewOrderDetail/>
       <ViewOrderDetailsContainer/>
+      <EditOrderDetails/>
     </div>
   );
   }
