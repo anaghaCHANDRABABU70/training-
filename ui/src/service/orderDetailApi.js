@@ -24,11 +24,11 @@ const productStatus = [
 
 const getOrder = (orderNo) =>
   axios
-    .get(`http://localhost:9000/orders/?orderNo=${orderNo}`)
-    .then((response) => {
+    .get("http://localhost:9000/orders/?orderNo=UAU0031447")
+    .then(response => {
       if (response) {
         const { data } = response;
-        console.log(data.customAttributes, "abcd");
+        console.log(response, "abcd");
         return data;
       }
       return [];

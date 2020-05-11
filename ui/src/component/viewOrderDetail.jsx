@@ -7,7 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Grid from "@material-ui/core/Grid";
 import Box from '@material-ui/core/Box';
-import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 class ViewOrderDetail extends Component {
   state = {};
 editButtonClick =()=>{
@@ -16,7 +16,7 @@ editButtonClick =()=>{
 }
   render() { 
     const {order}=this.props;
-  const { orderNo, siteId, status,orderDate,lineItems,shipments,customerName } =order;
+  const { orderNo, siteId, status,orderDate,lineItems,shipments,customerName, shippingLineItems} =order;
   console.log("order",order.billingAddress);
   console.log("order 123",order.paymentStatus);
   
@@ -102,17 +102,13 @@ editButtonClick =()=>{
          shipments.map((shipments,index)=>(
           <TableRow key={index}>
                <TableCell align="left" scope="row">{shipments.shipmentId}</TableCell>
-               <TableCell align="left">{shipments.shippingMethod}</TableCell>
-              
+               <TableCell align="left">{shipments.status}</TableCell>
              </TableRow>
  )) }
      </TableBody>
     </Table>
-    
     </Box>
  </Grid>
- 
-             
        </Box>
        </Grid>
      </Grid>
@@ -120,17 +116,13 @@ editButtonClick =()=>{
       <Grid item xs={5}></Grid>
       <Button color="primary" onClick={()=>this.editButtonClick()}>
                    Edit
-                    
           </Button>
-         
- 
  </Grid>
         </> 
      );
   }
 }
- 
-export default ViewOrderDetail;
+export default withRouter( ViewOrderDetail);
   
   
   

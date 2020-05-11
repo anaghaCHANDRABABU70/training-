@@ -9,7 +9,6 @@ import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import { withRouter } from "react-router-dom";
 import orderService from "../service/orderDetailApi";
-
 class EditOrderDetails extends Component {
   state = {
     orderStatus: "",
@@ -17,54 +16,30 @@ class EditOrderDetails extends Component {
     updatedLineitems: [],
     updatedProductStatus: [],
   };
-
   cancelButtonClick = () => {
     const { history } = this.props;
     history.push("/view");
   };
-
   saveButtonClick = () => {
     const { history, order } = this.props;
     const { orderNo, lineItems } = order;
-
     const {
       orderStatus,
       updatedShipments,
       updatedLineitems,
       updatedProductStatus,
     } = this.state;
-
     console.log("updatedLineitems", updatedLineitems);
-    if (updatedLineitems) {
-      console.log("inside map");
-
-      updatedLineitems.map((ulineItem) => {
-        if (ulineItem) {
-          lineItems.map((item) => {
-            if (ulineItem.itemNo === item.productId) {
-              updatedProductStatus.push({
-                itemNo: ulineItem.itemNo,
-                status: ulineItem.status,
-              });
-            }
-          });
-        }
-        console.log("map ulineitem", ulineItem.name);
-      });
-    }
     console.log("updatedProductStatus", updatedProductStatus);
-
     order.status = orderStatus;
     const requestData = {
       orderNo,
       status: orderStatus,
       updatedShipments,
-      updatedProductStatus,
+     updatedLineitems,
     };
     console.log("reqData all values that are changed (updated)", requestData);
-
     orderService.updateOrder(requestData);
-
     history.push("/view");
   };
   handleOrderStatusChange = (e) => {
@@ -74,14 +49,12 @@ class EditOrderDetails extends Component {
       name,
       value,
     );
-
     this.setState({ [name]: value });
   };
   handleProductStatusChange = (e, productId) => {
     const { name, value } = e.target;
     const { updatedLineitems } = this.state;
     updatedLineitems.push({ itemNo: productId, status: value });
-
     console.log(
       "handleProductStatusChange name and value when dropdown changed",
       name,
@@ -89,9 +62,20 @@ class EditOrderDetails extends Component {
     );
     this.setState({ updatedLineitems });
   };
-
+  handleStatusChange =(e,shipmentId)=>{
+    const {name,value}=e.target;
+    const { updatedShipments } = this.state;
+    updatedShipments.push({ itemNo: shipmentId, status: value });
+  
+    console.log(
+      "handleOrderStatusChange name and value when dropdown changed",
+      name,
+      value,
+    );
+    this.setState({ updatedShipments });
+  };
   render() {
-    const { order, statuses, handleStatusChange, productStatus } = this.props;
+    const { order, statuses,productStatus,orderStatus } = this.props;
     // productStatus from container
     const {
       orderNo,
@@ -114,11 +98,10 @@ class EditOrderDetails extends Component {
           <br />
           Customer Name : {customerName}
           <br />
-          Order Status :{status}
+          Order Status :{orderStatus}
           <Select
             required=""
             name="orderStatus"
-            // value={selectedorderStatus}
             onChange={(e) => {
               this.handleOrderStatusChange(e);
             }}
@@ -135,7 +118,6 @@ class EditOrderDetails extends Component {
               ))}
           </Select>
         </div>
-
         <h1>Product Details </h1>
         <Table>
           <TableHead>
@@ -156,9 +138,7 @@ class EditOrderDetails extends Component {
                   <TableCell align="left">{lineItem.productName}</TableCell>
                   <TableCell align="left">{lineItem.quantity}</TableCell>
                   <TableCell align="left">{lineItem.shipmentId}</TableCell>
-                  <TableCell align="left">
-                    {lineItem.customAttributes.primeNumber}
-                  </TableCell>
+                  <TableCell align="left"> {lineItem.customAttributes.primeNumber}</TableCell>
                   <TableCell align="left">
                     <Select
                       name={index}
@@ -189,38 +169,40 @@ class EditOrderDetails extends Component {
           <TableHead>
             <TableRow>
               <TableCell>Shipment Id</TableCell>
+           <TableCell>Shipment Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
               {shipments &&
-                shipments.map((shipments, index) => (
-                  <TableCell key={index}>{shipments.shipmentId}</TableCell>
-                ))}
-            </TableRow>
-          </TableBody>
-        </Table>
-        <select
-          className="custom-select d-block w-100"
-          required=""
-          name="statuses"
-          // value={selectedStatus}
-          style={{ cursor: "pointer" }}
+                shipments.map((shipment, index) => (
+                  <TableRow key={index}>
+                 <TableCell> {shipment.shipmentId}</TableCell>  
+           
+         <TableCell>
+        <Select
+          name={index}
           onChange={(e) => {
-            handleStatusChange(e);
+             this.handleStatusChange(e,shipment.shipmentId);
           }}
         >
           {statuses.length > 0 &&
             statuses.map((status, index) => (
-              <option
-                key={parseInt(index.toString(), 10)}
+              <MenuItem
+              value=""
+                key={index}
                 value={status.value}
-                name="status"
+                name={index}
               >
                 {status.text}
-              </option>
+              </MenuItem>
             ))}
-        </select>
+            <MenuItem>{shipment.status}</MenuItem>
+        </Select>
+        </TableCell>
+        </TableRow>
+         ))}
+        </TableBody>
+        </Table>
         <Button color="primary" onClick={() => this.cancelButtonClick()}>
           CANCEL
         </Button>
@@ -234,3 +216,4 @@ class EditOrderDetails extends Component {
 }
 
 export default withRouter(EditOrderDetails);
+  
