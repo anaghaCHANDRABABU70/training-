@@ -4,9 +4,9 @@ exports.findOrderByOrderNo =async(orderNo)=>{
     return Order.findOne({orderNo:orderNo});
 
 };
-exports.updateOrder =async (order)=>{
+exports.updateOrder =async (orderNo,order)=>{
     console.log("kkkkkkk",order);
-    const updated = await Order.updateOne({ orderNo: order.orderNo }, order);
+    const updated = await Order.updateOne( orderNo, order);
     
     return updated;
 
