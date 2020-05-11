@@ -9,6 +9,9 @@ var usersRouter = require('./routes/users');
 var orderRouter=require('./routes/orderRoute');
 var app = express();
 const mongoose=require('mongoose');
+const cors =require('cors');
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -18,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(cors());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/orders',orderRouter);

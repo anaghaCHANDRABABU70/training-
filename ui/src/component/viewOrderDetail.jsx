@@ -7,12 +7,19 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Grid from "@material-ui/core/Grid";
 import Box from '@material-ui/core/Box';
-
+import PropTypes from "prop-types";
 class ViewOrderDetail extends Component {
-  state = {  }
+  state = {};
+editButtonClick =()=>{
+  const{ history }=this.props;
+  history.push("/edit");
+}
   render() { 
     const {order}=this.props;
-  const { orderNo, siteId, status,orderDate,lineItems,shipments } =order;
+  const { orderNo, siteId, status,orderDate,lineItems,shipments,customerName } =order;
+  console.log("order",order.billingAddress);
+  console.log("order 123",order.paymentStatus);
+  
   
     return ( <>
       <Grid container spacing={4}>
@@ -30,6 +37,9 @@ class ViewOrderDetail extends Component {
              </TableCell>
            <TableCell width="30%" component="th" scope="row" align="left">
              Order Date : {orderDate}
+             </TableCell>
+             <TableCell width="30%" component="th" scope="row" align="left">
+               Customer Name:{customerName}
              </TableCell>
              </TableRow>
              <TableRow>
@@ -108,7 +118,7 @@ class ViewOrderDetail extends Component {
      </Grid>
      <Grid container spacing={0}>
       <Grid item xs={5}></Grid>
-      <Button color="primary" onClick={EditOrderDetails}>
+      <Button color="primary" onClick={()=>this.editButtonClick()}>
                    Edit
                     
           </Button>
