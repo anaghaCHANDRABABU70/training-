@@ -38,7 +38,7 @@ const updateOrder = (orderDetails) => {
   console.log("orderDetails", orderDetails);
 
   axios
-    .patch("http://localhost:9000/orders/", orderDetails)
+    .patch("http://localhost:9000/orders",orderDetails)
 
     .then((response) => {
       if (response) {

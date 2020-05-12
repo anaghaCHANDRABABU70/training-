@@ -29,6 +29,8 @@ class EditOrderDetails extends Component {
       updatedLineitems,
       updatedProductStatus,
     } = this.state;
+    console.log("updatedshipme",updatedShipments);
+    
     console.log("updatedLineitems", updatedLineitems);
     console.log("updatedProductStatus", updatedProductStatus);
     order.status = orderStatus;
@@ -80,9 +82,9 @@ class EditOrderDetails extends Component {
     const {
       orderNo,
       siteId,
+      status,
       orderDate,
       customerName,
-      status,
       lineItems,
       shipments,
     } = order;
@@ -188,7 +190,6 @@ class EditOrderDetails extends Component {
           {statuses.length > 0 &&
             statuses.map((status, index) => (
               <MenuItem
-              value=""
                 key={index}
                 value={status.value}
                 name={index}
@@ -196,7 +197,7 @@ class EditOrderDetails extends Component {
                 {status.text}
               </MenuItem>
             ))}
-            <MenuItem>{shipment.status}</MenuItem>
+            <MenuItem>{status}</MenuItem>
         </Select>
         </TableCell>
         </TableRow>

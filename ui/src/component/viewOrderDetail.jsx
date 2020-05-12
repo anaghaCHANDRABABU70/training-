@@ -16,7 +16,7 @@ editButtonClick =()=>{
 }
   render() { 
     const {order}=this.props;
-  const { orderNo, siteId, status,orderDate,lineItems,shipments,customerName, shippingLineItems} =order;
+  const { orderNo, siteId, status,orderDate,lineItems,shipments,customerName} =order;
   console.log("order",order.billingAddress);
   console.log("order 123",order.paymentStatus);
   
@@ -102,7 +102,7 @@ editButtonClick =()=>{
          shipments.map((shipments,index)=>(
           <TableRow key={index}>
                <TableCell align="left" scope="row">{shipments.shipmentId}</TableCell>
-               <TableCell align="left">{shipments.status}</TableCell>
+               <TableCell align="left">{status}</TableCell>
              </TableRow>
  )) }
      </TableBody>

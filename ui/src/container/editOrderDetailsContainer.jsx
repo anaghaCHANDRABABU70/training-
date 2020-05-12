@@ -8,7 +8,7 @@ class EditOrderDetailsContainer extends Component {
     this.state = {
       order: [],
       itemStatus: [],
-      status: "",
+      status: [],
       productStatus: [],
     };
   }
@@ -24,6 +24,8 @@ class EditOrderDetailsContainer extends Component {
 
     const productStatus = orderService.productStatus;
     this.setState({ productStatus });
+    console.log(productStatus);
+    
   }
   statusChange = (e) => {
     const { name, value } = e.target;

@@ -6,8 +6,7 @@ exports.findOrderByOrderNo =async(orderNo)=>{
 };
 exports.updateOrder =async (orderNo,order)=>{
     console.log("kkkkkkk",order);
-    const updated = await Order.updateOne( orderNo, order);
-    
+    const updated = await Order.updateOne(orderNo, order);
     return updated;
 
 };
