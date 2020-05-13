@@ -14,7 +14,8 @@ public class OrderServiceImpl implements OrderService{
     public OrderDto getAllOrders(String orderNo) {
         Order order =orderRepository.findByOrderNo(orderNo);
         OrderDto orderDto=new OrderDto(); 
-        System.out.println(order);
+        System.out.println("hhhhh");
+        System.out.println(orderNo);
         BeanUtils.copyProperties(order,orderDto);
         return orderDto;
     }

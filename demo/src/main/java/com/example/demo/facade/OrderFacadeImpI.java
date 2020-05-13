@@ -10,6 +10,7 @@ public class OrderFacadeImpI implements OrderFacade {
     @Override
     public OrderDto getAllOrders(String orderNo){
         System.out.println("order kkkk");
+        System.out.println(orderNo);
         return orderService.getAllOrders(orderNo);
         
 
